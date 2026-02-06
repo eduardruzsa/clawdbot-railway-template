@@ -54,7 +54,8 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 ENV NONINTERACTIVE=1
-RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+RUN useradd -m -s /bin/bash linuxbrew \
+  && su - linuxbrew -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
 
 WORKDIR /app
