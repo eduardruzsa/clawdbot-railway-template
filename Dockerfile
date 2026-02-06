@@ -10,7 +10,6 @@ RUN apt-get update \
     python3 \
     make \
     g++ \
-    golang \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Bun (openclaw build uses it)
@@ -46,7 +45,17 @@ ENV NODE_ENV=production
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
+    curl \
+    git \
+    build-essential \
+    procps \
+    golang \
+    ffmpeg \
   && rm -rf /var/lib/apt/lists/*
+
+ENV NONINTERACTIVE=1
+RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
 
 WORKDIR /app
 
